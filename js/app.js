@@ -13,8 +13,7 @@ window.start = () => {
             borderColor: '#ffffff',
             fill: false,
             borderWidth: 2,
-            pointRadius: 0,
-            display: false
+            pointRadius: 0
         }]
     },
     options: {
@@ -23,17 +22,17 @@ window.start = () => {
       },
       scales: {
         yAxes: [{
-          display: false,
-          ticks: {
-            suggestedMin: 0,
-            beginAtZero: true
-          },
+          color: '#ffffff',
           gridLines: {
             display: false
+          },
+          ticks: {
+            fontColor: '#ffffff',
+            suggestedMin: 0,
+            beginAtZero: true
           }
         }],
         xAxes: [{
-          display: false,
           gridLines: {
             display: false
           },
@@ -54,6 +53,7 @@ window.render = (raw) => {
   let reward = json.reward;
   let score = json.score;
   let tetrominoes = json.tetrominoes;
+  let state = json.state;
 
   let children = document.querySelector(".grid").children;
   for (let row = 0; row < 20; row++) {
@@ -79,8 +79,13 @@ window.render = (raw) => {
   }
 
   if (window.tetrominoes !== tetrominoes) {
-    window.fitness = [...window.fitness.slice(-9), reward];
+    window.fitness = [...window.fitness.slice(-99), reward];
   }
+
+  document.querySelector("#lines").innerHTML = state[0];
+  document.querySelector("#holes").innerHTML = state[1];
+  document.querySelector("#bumpiness").innerHTML = state[2];
+  document.querySelector("#height").innerHTML = state[3];
 
   window.setChart();
 
@@ -91,6 +96,7 @@ window.render = (raw) => {
 
 window.setChart = () => {
   chart.data.datasets[0].data = window.fitness;
+  chart.data.labels = window.fitness;
   chart.update(0);
 }
 
