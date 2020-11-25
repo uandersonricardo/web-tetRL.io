@@ -82,7 +82,7 @@ window.render = (raw) => {
     window.fitness = [...window.fitness.slice(-99), reward];
   }
 
-  document.querySelector("#lines").innerHTML = state[0];
+  document.querySelector("#lines").innerHTML = score;
   document.querySelector("#holes").innerHTML = state[1];
   document.querySelector("#bumpiness").innerHTML = state[2];
   document.querySelector("#height").innerHTML = state[3];
@@ -91,7 +91,7 @@ window.render = (raw) => {
 
   window.tetrominoes = tetrominoes;
   
-  document.querySelector(".next-score-text").innerHTML = "Placar: " + score;
+  document.querySelector(".next-score-text").innerHTML = "Placar: " + (score*10);
 }
 
 window.setChart = () => {
